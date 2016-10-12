@@ -11,17 +11,7 @@ namespace FeatureEnvy
 
         public RiskFactor CalculateMotoristRisk()
         {
-            if (motorist.PointsOnLicense > 3 || motorist.Age < 25)
-            {
-                return RiskFactor.HIGH_RISK;
-            }
-
-            if (motorist.PointsOnLicense > 0)
-            {
-                return RiskFactor.MODERATE_RISK;
-            }
-
-            return RiskFactor.LOW_RISK;
+            return motorist.CalculateRiskFactor();
         }
 
         public double CalculateInsurancePremium(double insuranceValue)

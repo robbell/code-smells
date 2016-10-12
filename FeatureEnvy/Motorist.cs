@@ -33,5 +33,20 @@ namespace FeatureEnvy
             }
             return ageYr;
         }
+
+        public RiskFactor CalculateRiskFactor()
+        {
+            if (PointsOnLicense > 3 || Age < 25)
+            {
+                return RiskFactor.HIGH_RISK;
+            }
+
+            if (PointsOnLicense > 0)
+            {
+                return RiskFactor.MODERATE_RISK;
+            }
+
+            return RiskFactor.LOW_RISK;
+        }
     }
 }
