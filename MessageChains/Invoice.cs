@@ -26,10 +26,11 @@ namespace MessageChains
                     invoiceTotal += invoiceItem.Subtotal;
                 }
 
-                if (!customer.Address.Country.IsInEurope)
+                if (!customer.IsInEurope())
                 {
                     invoiceTotal += SHIPPING_COST_OUTSIDE_EU;
                 }
+
                 return invoiceTotal;
             }
         }

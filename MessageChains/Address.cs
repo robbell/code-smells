@@ -8,5 +8,10 @@ namespace MessageChains
         }
 
         public Country Country { get; private set; }
+
+        public bool IsInEurope()
+        {
+            return Country.IsInEurope;
+        }
     }
 }
