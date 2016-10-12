@@ -77,6 +77,7 @@ namespace LongMethods
             {
                 priority = Priority.Critical;
             }
+
             return priority;
         }
     }
