@@ -5,9 +5,10 @@ namespace Comments
 
     public class TechnicalDebt
     {
+        private const int MaximumEffortManHours = 1000;
         private readonly IList<Issue> issues = new List<Issue>();
 
-        public float Total { get; private set; }
+        public float TotalHours { get; private set; }
 
         public Issue LastIssue
         {
@@ -18,29 +19,45 @@ namespace Comments
         }
 
         public string LastIssueDate { get; private set; }
-
+            
         public void Fixed(float amount)
         {
-            Total -= amount;
+            TotalHours -= amount;
         }
 
-        public void Register(float effortManHours, string description)
+        public void Register(float estimatedManHours, string description)
         {
-            // check effort does not exceed max allowed
-            if (effortManHours > 1000)
-            {
-                throw new ArgumentException("Cannot register tech debt where effort is bigger than 1000 man hours to fix");
-            }
+            CheckEffortDoesNotExceedMaximum(estimatedManHours);
 
-            // deduct amount from total
-            Total += effortManHours;
+            AddEstimatedHoursToTotal(estimatedManHours);
 
-            // record issue
-            issues.Add(new Issue(effortManHours, description));
+            AddIssue(estimatedManHours, description);
 
-            // update last issue date
+            UpdateLastIssueDate();
+        }
+
+        private void AddIssue(float estimatedManHours, string description)
+        {
+            issues.Add(new Issue(estimatedManHours, description));
+        }
+
+        private void UpdateLastIssueDate()
+        {
             var now = DateTime.Now;
             LastIssueDate = now.Date + "/" + now.Month + "/" + now.Year;
+        }
+
+        private void AddEstimatedHoursToTotal(float estimatedManHours)
+        {
+            TotalHours += estimatedManHours;
+        }
+
+        private static void CheckEffortDoesNotExceedMaximum(float effortManHours)
+        {
+            if (effortManHours > MaximumEffortManHours)
+            {
+                throw new ArgumentException($"Cannot register tech debt where effort is bigger than {MaximumEffortManHours} man hours to fix");
+            }
         }
     }
 }

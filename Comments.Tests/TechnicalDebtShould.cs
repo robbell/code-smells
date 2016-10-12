@@ -21,7 +21,7 @@ namespace Comments.Tests
 
             technicalDebt.Fixed(50);
 
-            Assert.AreEqual(0, technicalDebt.Total);
+            Assert.AreEqual(0, technicalDebt.TotalHours);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Comments.Tests
         {
             technicalDebt.Register(50, "Declared Issue class in same file as TechnicalDebt class");
 
-            Assert.AreEqual(50, technicalDebt.Total);
+            Assert.AreEqual(50, technicalDebt.TotalHours);
         }
 
         [Test]
